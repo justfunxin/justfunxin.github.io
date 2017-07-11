@@ -106,17 +106,18 @@
                     }
                     lastSelectedLength = selectedLength;
                 });
-                if(opts.default_sku) {
-                    var newKey = key.replace(/^;|;$/gi, '');
-                    var pieces = newKey.split(';');
-                    PARTICLES.each(function(){
-                        var prop = skuItem.attr(opts.attrName);
-                        if($.inArray(prop, pieces) > -1){
-                            $(this).trigger('click');
-                        }
-                    });
-                }
+                opts.serializedSkuMap[skuItem.attr(opts.attrName)] ? skuItem.removeClass(opts.disabledClass) : skuItem.addClass(opts.disabledClass).removeClass(opts.selectedClass);
             });
+            if(opts.default_sku) {
+                var newKey = key.replace(/^;|;$/gi, '');
+                var pieces = newKey.split(';');
+                PARTICLES.each(function(){
+                    var prop = $(this).attr(opts.attrName);
+                    if($.inArray(prop, pieces) > -1){
+                        $(this).trigger('click');
+                    }
+                });
+            }
         });
     };
 
